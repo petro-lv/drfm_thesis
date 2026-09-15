@@ -4,10 +4,10 @@
 <!-- Copyright 1986-2022 Xilinx, Inc. All Rights Reserved.                   -->
 <!-- Copyright 2022-2024 Advanced Micro Devices, Inc. All Rights Reserved.   -->
 
-<Project Product="Vivado" Version="7" Minor="68" Path="C:/Users/Admin/Desktop/diploma/drfm_thesis/drfm_fifo/drfm_fifo.xpr">
+<Project Product="Vivado" Version="7" Minor="68" Path="C:/Users/Admin/Desktop/diploma/drfm_thesis/src/delay_line/delay_line.xpr">
   <DefaultLaunch Dir="$PRUNDIR"/>
   <Configuration>
-    <Option Name="Id" Val="f6e8d58e189a4bfba30edd84834354e1"/>
+    <Option Name="Id" Val="378bb1244a9445078275fe6bd777d152"/>
     <Option Name="Part" Val="xc7z010iclg225-1L"/>
     <Option Name="CompiledLibDir" Val="$PCACHEDIR/compile_simlib"/>
     <Option Name="CompiledLibDirXSim" Val=""/>

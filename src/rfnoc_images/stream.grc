@@ -1,0 +1,286 @@
+options:
+  parameters:
+    author: ''
+    catch_exceptions: 'True'
+    category: '[GRC Hier Blocks]'
+    cmake_opt: ''
+    comment: ''
+    copyright: ''
+    description: ''
+    gen_cmake: 'On'
+    gen_linking: dynamic
+    generate_options: qt_gui
+    hier_block_src_path: '.:'
+    id: stream
+    max_nouts: '0'
+    output_language: python
+    placement: (0,0)
+    qt_qss_theme: ''
+    realtime_scheduling: ''
+    run: 'True'
+    run_command: '{python} -u {filename}'
+    run_options: prompt
+    sizing_mode: fixed
+    thread_safe_setters: ''
+    title: Not titled yet
+    window_size: (1000,1000)
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [8, 8]
+    rotation: 0
+    state: enabled
+
+blocks:
+- name: samp_rate
+  id: variable
+  parameters:
+    comment: ''
+    value: '32000'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [200, 12]
+    rotation: 0
+    state: enabled
+- name: uhd_fpga_ddc_0
+  id: uhd_fpga_ddc
+  parameters:
+    CIC_MAX_DECIM: '255'
+    NUM_HB: '3'
+    NUM_PORTS: '1'
+    affinity: ''
+    alias: ''
+    comment: ''
+    desc: ddc.yml
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    type: block
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [1408, 624.0]
+    rotation: 180
+    state: enabled
+- name: uhd_fpga_ddc_1
+  id: uhd_fpga_ddc
+  parameters:
+    CIC_MAX_DECIM: '255'
+    NUM_HB: '3'
+    NUM_PORTS: '1'
+    affinity: ''
+    alias: ''
+    comment: ''
+    desc: ddc.yml
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    type: block
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [1408, 696.0]
+    rotation: 180
+    state: enabled
+- name: uhd_fpga_device_bsp_0
+  id: uhd_fpga_device_bsp
+  parameters:
+    DRAM_WIDTH: '64'
+    ENABLE_DRAM: 'True'
+    NUM_DRAM_BANKS: '1'
+    NUM_DRAM_CHANS: '1'
+    RF_BW: '200'
+    affinity: ''
+    alias: ''
+    chdr_width: '64'
+    comment: ''
+    default_target: X310_HG
+    device: x310
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    type: device
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [1592, 288.0]
+    rotation: 0
+    state: enabled
+- name: uhd_fpga_duc_0
+  id: uhd_fpga_duc
+  parameters:
+    CIC_MAX_INTERP: '255'
+    NUM_HB: '3'
+    NUM_PORTS: '1'
+    affinity: ''
+    alias: ''
+    comment: ''
+    desc: duc.yml
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    type: block
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [1048, 840.0]
+    rotation: 0
+    state: enabled
+- name: uhd_fpga_duc_1
+  id: uhd_fpga_duc
+  parameters:
+    CIC_MAX_INTERP: '255'
+    NUM_HB: '3'
+    NUM_PORTS: '1'
+    affinity: ''
+    alias: ''
+    comment: ''
+    desc: duc.yml
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    type: block
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [1056, 760.0]
+    rotation: 0
+    state: enabled
+- name: uhd_fpga_radio_0
+  id: uhd_fpga_radio
+  parameters:
+    NIPC: '1'
+    NUM_PORTS: '2'
+    affinity: ''
+    alias: ''
+    comment: ''
+    ctrl_clock: ''
+    desc: radio.yml
+    enable_adv_clk_ctrl: 'False'
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    timebase_clock: ''
+    type: block
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [1624, 592.0]
+    rotation: 180
+    state: enabled
+- name: uhd_fpga_radio_0_0
+  id: uhd_fpga_radio
+  parameters:
+    NIPC: '1'
+    NUM_PORTS: '2'
+    affinity: ''
+    alias: ''
+    comment: ''
+    ctrl_clock: ''
+    desc: radio.yml
+    enable_adv_clk_ctrl: 'False'
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    timebase_clock: ''
+    type: block
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [1632, 944.0]
+    rotation: 180
+    state: enabled
+- name: uhd_fpga_replay_0
+  id: uhd_fpga_replay
+  parameters:
+    MEM_ADDR_W: '30'
+    MEM_DATA_W: '64'
+    NUM_PORTS: '2'
+    affinity: ''
+    alias: ''
+    comment: ''
+    desc: replay.yml
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    priority: '99'
+    type: block
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [1040, 632.0]
+    rotation: 180
+    state: enabled
+- name: uhd_fpga_sep_1_0
+  id: uhd_fpga_sep
+  parameters:
+    affinity: ''
+    alias: ''
+    buff_size_bytes: '32768'
+    comment: ''
+    ctrl: Auto
+    data: 'True'
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    type: sep
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [1616, 1160.0]
+    rotation: 0
+    state: enabled
+- name: uhd_fpga_sep_1_1
+  id: uhd_fpga_sep
+  parameters:
+    affinity: ''
+    alias: ''
+    buff_size_bytes: '32768'
+    comment: ''
+    ctrl: Auto
+    data: 'True'
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    type: sep
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [1616, 1112.0]
+    rotation: 0
+    state: enabled
+
+connections:
+- [uhd_fpga_ddc_0, out_, uhd_fpga_replay_0, in_0]
+- [uhd_fpga_ddc_1, out_, uhd_fpga_replay_0, in_1]
+- [uhd_fpga_device_bsp_0, ce_clk, uhd_fpga_ddc_0, ce_clk]
+- [uhd_fpga_device_bsp_0, ce_clk, uhd_fpga_ddc_1, ce_clk]
+- [uhd_fpga_device_bsp_0, ce_clk, uhd_fpga_duc_0, ce_clk]
+- [uhd_fpga_device_bsp_0, ce_clk, uhd_fpga_duc_1, ce_clk]
+- [uhd_fpga_device_bsp_0, dram_clk, uhd_fpga_replay_0, mem_clk]
+- [uhd_fpga_device_bsp_0, radio0, uhd_fpga_radio_0, radio]
+- [uhd_fpga_device_bsp_0, radio1, uhd_fpga_radio_0_0, radio]
+- [uhd_fpga_device_bsp_0, radio_clk, uhd_fpga_radio_0, radio_clk]
+- [uhd_fpga_device_bsp_0, radio_clk, uhd_fpga_radio_0_0, radio_clk]
+- [uhd_fpga_device_bsp_0, time, uhd_fpga_radio_0, time]
+- [uhd_fpga_device_bsp_0, time, uhd_fpga_radio_0_0, time]
+- [uhd_fpga_duc_0, out_, uhd_fpga_radio_0, in_0]
+- [uhd_fpga_duc_1, out_, uhd_fpga_radio_0, in_1]
+- [uhd_fpga_radio_0, ctrlport, uhd_fpga_device_bsp_0, ctrlport_radio0]
+- [uhd_fpga_radio_0, out_0, uhd_fpga_ddc_0, in_]
+- [uhd_fpga_radio_0, out_1, uhd_fpga_ddc_1, in_]
+- [uhd_fpga_radio_0_0, ctrlport, uhd_fpga_device_bsp_0, ctrlport_radio1]
+- [uhd_fpga_radio_0_0, out_0, uhd_fpga_sep_1_0, in0]
+- [uhd_fpga_radio_0_0, out_1, uhd_fpga_sep_1_1, in0]
+- [uhd_fpga_replay_0, axi_ram, uhd_fpga_device_bsp_0, dram]
+- [uhd_fpga_replay_0, out_0, uhd_fpga_duc_0, in_]
+- [uhd_fpga_replay_0, out_1, uhd_fpga_duc_1, in_]
+- [uhd_fpga_sep_1_0, out0, uhd_fpga_radio_0_0, in_0]
+- [uhd_fpga_sep_1_1, out0, uhd_fpga_radio_0_0, in_1]
+
+metadata:
+  file_format: 1
+  grc_version: 3.10.12.0

@@ -28,7 +28,7 @@
 // Metadata of the document
 //
 #let doc= (
-  title    : "SDR-based DRFM Jammer for OFDM-PHY",
+  title    : "Jamming OFDM Links using Digital RF Memory",
   subtitle : "",
   author: (
     name        : "Petro Sidliar",

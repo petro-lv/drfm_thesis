@@ -1,0 +1,1135 @@
+options:
+  parameters:
+    author: ''
+    catch_exceptions: 'True'
+    category: '[GRC Hier Blocks]'
+    cmake_opt: ''
+    comment: ''
+    copyright: ''
+    description: ''
+    gen_cmake: 'On'
+    gen_linking: dynamic
+    generate_options: qt_gui
+    hier_block_src_path: '.:'
+    id: rfnoc_stream
+    max_nouts: '0'
+    output_language: python
+    placement: (0,0)
+    qt_qss_theme: ''
+    realtime_scheduling: ''
+    run: 'True'
+    run_command: '{python} -u {filename}'
+    run_options: prompt
+    sizing_mode: fixed
+    thread_safe_setters: ''
+    title: Not titled yet
+    window_size: (1000,1000)
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [8, 8]
+    rotation: 0
+    state: enabled
+
+blocks:
+- name: amplitude
+  id: variable
+  parameters:
+    comment: ''
+    value: '0'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [472, 20.0]
+    rotation: 0
+    state: enabled
+- name: center_freq
+  id: variable
+  parameters:
+    comment: ''
+    value: 433e6
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [600, 20.0]
+    rotation: 0
+    state: enabled
+- name: gain
+  id: variable
+  parameters:
+    comment: ''
+    value: '0'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [360, 20.0]
+    rotation: 0
+    state: enabled
+- name: samp_rate
+  id: variable
+  parameters:
+    comment: ''
+    value: 5e6
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [200, 12]
+    rotation: 0
+    state: enabled
+- name: stream_cmd_dict
+  id: variable
+  parameters:
+    comment: ''
+    value: '{''stream_now'': True, ''stream_mode'': ''start_cont'' if stream_on else
+      ''stop_cont''}'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [24, 300.0]
+    rotation: 0
+    state: enabled
+- name: stream_on
+  id: variable_qtgui_toggle_button_msg
+  parameters:
+    comment: 'All of this is simply to provide a toggle switch to turn loopback on
+      and off.
+
+      By default, the RFNoC RX Radio does not stream, it waits for a stream command.
+
+      In this flow graph, we provide that stream command manually, through the
+
+      command message port.'
+    gui_hint: ''
+    initPressed: 'False'
+    label: Enable Stream
+    outputmsgname: value
+    pressBackgroundColor: default
+    pressFontColor: default
+    pressed: '1'
+    relBackgroundColor: default
+    relFontColor: default
+    released: '0'
+    type: int
+    value: '0'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [24, 368.0]
+    rotation: 0
+    state: enabled
+- name: uhd_rfnoc_graph_0
+  id: uhd_rfnoc_graph
+  parameters:
+    alias: ''
+    clock_source: ''
+    comment: ''
+    dev_addr: ''
+    dev_args: ''
+    num_mboards: '1'
+    time_source: ''
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [832, 48.0]
+    rotation: 0
+    state: enabled
+- name: vco_amp
+  id: variable_qtgui_range
+  parameters:
+    comment: ''
+    gui_hint: ''
+    label: ''
+    min_len: '200'
+    orient: QtCore.Qt.Horizontal
+    rangeType: float
+    start: '0'
+    step: '0.01'
+    stop: '1'
+    value: '0.1'
+    widget: counter_slider
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [640, 1184.0]
+    rotation: 0
+    state: enabled
+- name: analog_sig_source_x_0
+  id: analog_sig_source_x
+  parameters:
+    affinity: ''
+    alias: ''
+    amp: '0.4'
+    comment: ''
+    freq: '5'
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    offset: '0.2'
+    phase: '0'
+    samp_rate: samp_rate
+    showports: 'False'
+    type: float
+    waveform: analog.GR_SAW_WAVE
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [56, 1080.0]
+    rotation: 0
+    state: enabled
+- name: blocks_message_debug_0
+  id: blocks_message_debug
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: "This will print out the record fullness to the \nterminal when the record\
+      \ fullness button is pressed. \nThis helps indicate to the user if the block\
+      \ has \nfinished recording the requested amount."
+    en_uvec: 'True'
+    log_level: info
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [1216, 360.0]
+    rotation: 0
+    state: enabled
+- name: blocks_var_to_msg_0
+  id: blocks_var_to_msg
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    msgname: stream_cmd
+    target: stream_cmd_dict
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [24, 220.0]
+    rotation: 0
+    state: enabled
+- name: blocks_vco_c_0
+  id: blocks_vco_c
+  parameters:
+    affinity: ''
+    alias: ''
+    amplitude: vco_amp
+    comment: ''
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    samp_rate: samp_rate
+    sensitivity: 2 * pi * 1e6
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [376, 1108.0]
+    rotation: 0
+    state: enabled
+- name: cont_play_push_button
+  id: uhd_msg_push_button
+  parameters:
+    affinity: ''
+    alias: ''
+    command: play
+    comment: ''
+    gui_hint: :[1,2,1,1]
+    label: Play Continuous
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    offset: '-1'
+    port: '0'
+    relBackgroundColor: default
+    relFontColor: default
+    repeat: 'True'
+    size: '-1'
+    time: '-1'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [504, 312.0]
+    rotation: 0
+    state: enabled
+- name: fullness_push_button
+  id: uhd_msg_push_button
+  parameters:
+    affinity: ''
+    alias: ''
+    command: get_record_fullness
+    comment: ''
+    gui_hint: :[2,0,1,1]
+    label: Get Record Fullness
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    offset: '-1'
+    port: '0'
+    relBackgroundColor: default
+    relFontColor: default
+    repeat: 'False'
+    size: '-1'
+    time: '-1'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [760, 396.0]
+    rotation: 0
+    state: enabled
+- name: import_0
+  id: import
+  parameters:
+    alias: ''
+    comment: ''
+    imports: from math import pi
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [728, 24.0]
+    rotation: 0
+    state: enabled
+- name: import_0_0
+  id: import
+  parameters:
+    alias: ''
+    comment: ''
+    imports: import pmt
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [184, 296.0]
+    rotation: 0
+    state: enabled
+- name: play_push_button
+  id: uhd_msg_push_button
+  parameters:
+    affinity: ''
+    alias: ''
+    command: play
+    comment: ''
+    gui_hint: :[1,1,1,1]
+    label: Play
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    offset: '-1'
+    port: '0'
+    relBackgroundColor: default
+    relFontColor: default
+    repeat: 'False'
+    size: '-1'
+    time: '-1'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [504, 160.0]
+    rotation: 0
+    state: enabled
+- name: qtgui_freq_sink_x_0
+  id: qtgui_freq_sink_x
+  parameters:
+    affinity: ''
+    alias: ''
+    alpha1: '1.0'
+    alpha10: '1.0'
+    alpha2: '1.0'
+    alpha3: '1.0'
+    alpha4: '1.0'
+    alpha5: '1.0'
+    alpha6: '1.0'
+    alpha7: '1.0'
+    alpha8: '1.0'
+    alpha9: '1.0'
+    autoscale: 'False'
+    average: '1.0'
+    axislabels: 'True'
+    bw: samp_rate * 4
+    color1: '"blue"'
+    color10: '"dark blue"'
+    color2: '"red"'
+    color3: '"green"'
+    color4: '"black"'
+    color5: '"cyan"'
+    color6: '"magenta"'
+    color7: '"yellow"'
+    color8: '"dark red"'
+    color9: '"dark green"'
+    comment: ''
+    ctrlpanel: 'False'
+    fc: center_freq
+    fftsize: '1024'
+    freqhalf: 'True'
+    grid: 'False'
+    gui_hint: ''
+    label: Relative Gain
+    label1: ''
+    label10: ''''''
+    label2: ''''''
+    label3: ''''''
+    label4: ''''''
+    label5: ''''''
+    label6: ''''''
+    label7: ''''''
+    label8: ''''''
+    label9: ''''''
+    legend: 'True'
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    name: '""'
+    nconnections: '1'
+    norm_window: 'False'
+    showports: 'False'
+    tr_chan: '0'
+    tr_level: '0.0'
+    tr_mode: qtgui.TRIG_MODE_FREE
+    tr_tag: '""'
+    type: complex
+    units: dB
+    update_time: '0.10'
+    width1: '1'
+    width10: '1'
+    width2: '1'
+    width3: '1'
+    width4: '1'
+    width5: '1'
+    width6: '1'
+    width7: '1'
+    width8: '1'
+    width9: '1'
+    wintype: window.WIN_BLACKMAN_hARRIS
+    ymax: '10'
+    ymin: '-140'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [1056, 956.0]
+    rotation: 0
+    state: enabled
+- name: qtgui_freq_sink_x_0_0
+  id: qtgui_freq_sink_x
+  parameters:
+    affinity: ''
+    alias: ''
+    alpha1: '1.0'
+    alpha10: '1.0'
+    alpha2: '1.0'
+    alpha3: '1.0'
+    alpha4: '1.0'
+    alpha5: '1.0'
+    alpha6: '1.0'
+    alpha7: '1.0'
+    alpha8: '1.0'
+    alpha9: '1.0'
+    autoscale: 'False'
+    average: '1.0'
+    axislabels: 'True'
+    bw: samp_rate * 4
+    color1: '"blue"'
+    color10: '"dark blue"'
+    color2: '"red"'
+    color3: '"green"'
+    color4: '"black"'
+    color5: '"cyan"'
+    color6: '"magenta"'
+    color7: '"yellow"'
+    color8: '"dark red"'
+    color9: '"dark green"'
+    comment: ''
+    ctrlpanel: 'False'
+    fc: center_freq
+    fftsize: '1024'
+    freqhalf: 'True'
+    grid: 'False'
+    gui_hint: ''
+    label: Relative Gain
+    label1: ''
+    label10: ''''''
+    label2: ''''''
+    label3: ''''''
+    label4: ''''''
+    label5: ''''''
+    label6: ''''''
+    label7: ''''''
+    label8: ''''''
+    label9: ''''''
+    legend: 'True'
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    name: '""'
+    nconnections: '1'
+    norm_window: 'False'
+    showports: 'False'
+    tr_chan: '0'
+    tr_level: '0.0'
+    tr_mode: qtgui.TRIG_MODE_FREE
+    tr_tag: '""'
+    type: complex
+    units: dB
+    update_time: '0.10'
+    width1: '1'
+    width10: '1'
+    width2: '1'
+    width3: '1'
+    width4: '1'
+    width5: '1'
+    width6: '1'
+    width7: '1'
+    width8: '1'
+    width9: '1'
+    wintype: window.WIN_BLACKMAN_hARRIS
+    ymax: '10'
+    ymin: '-160'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [1232, 764.0]
+    rotation: 0
+    state: disabled
+- name: qtgui_waterfall_sink_x_0
+  id: qtgui_waterfall_sink_x
+  parameters:
+    affinity: ''
+    alias: ''
+    alpha1: '1.0'
+    alpha10: '1.0'
+    alpha2: '1.0'
+    alpha3: '1.0'
+    alpha4: '1.0'
+    alpha5: '1.0'
+    alpha6: '1.0'
+    alpha7: '1.0'
+    alpha8: '1.0'
+    alpha9: '1.0'
+    axislabels: 'True'
+    bw: samp_rate * 4
+    color1: '0'
+    color10: '0'
+    color2: '0'
+    color3: '0'
+    color4: '0'
+    color5: '0'
+    color6: '0'
+    color7: '0'
+    color8: '0'
+    color9: '0'
+    comment: ''
+    fc: center_freq
+    fftsize: '1024'
+    freqhalf: 'True'
+    grid: 'False'
+    gui_hint: ''
+    int_max: '10'
+    int_min: '-140'
+    label1: ''
+    label10: ''
+    label2: ''
+    label3: ''
+    label4: ''
+    label5: ''
+    label6: ''
+    label7: ''
+    label8: ''
+    label9: ''
+    legend: 'True'
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    name: '""'
+    nconnections: '1'
+    showports: 'False'
+    type: complex
+    update_time: '0.10'
+    wintype: window.WIN_BLACKMAN_hARRIS
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [1056, 852.0]
+    rotation: 0
+    state: enabled
+- name: qtgui_waterfall_sink_x_0_0
+  id: qtgui_waterfall_sink_x
+  parameters:
+    affinity: ''
+    alias: ''
+    alpha1: '1.0'
+    alpha10: '1.0'
+    alpha2: '1.0'
+    alpha3: '1.0'
+    alpha4: '1.0'
+    alpha5: '1.0'
+    alpha6: '1.0'
+    alpha7: '1.0'
+    alpha8: '1.0'
+    alpha9: '1.0'
+    axislabels: 'True'
+    bw: samp_rate * 4
+    color1: '0'
+    color10: '0'
+    color2: '0'
+    color3: '0'
+    color4: '0'
+    color5: '0'
+    color6: '0'
+    color7: '0'
+    color8: '0'
+    color9: '0'
+    comment: ''
+    fc: center_freq
+    fftsize: '1024'
+    freqhalf: 'True'
+    grid: 'False'
+    gui_hint: ''
+    int_max: '10'
+    int_min: '-140'
+    label1: ''
+    label10: ''
+    label2: ''
+    label3: ''
+    label4: ''
+    label5: ''
+    label6: ''
+    label7: ''
+    label8: ''
+    label9: ''
+    legend: 'True'
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    name: '""'
+    nconnections: '1'
+    showports: 'False'
+    type: complex
+    update_time: '0.10'
+    wintype: window.WIN_BLACKMAN_hARRIS
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [1224, 652.0]
+    rotation: 0
+    state: disabled
+- name: record_push_button
+  id: uhd_msg_push_button
+  parameters:
+    affinity: ''
+    alias: ''
+    command: record
+    comment: ''
+    gui_hint: :[1,0,1,1]
+    label: Record
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    offset: '-1'
+    port: '0'
+    relBackgroundColor: default
+    relFontColor: default
+    repeat: 'False'
+    size: '-1'
+    time: '-1'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [776, 188.0]
+    rotation: 0
+    state: enabled
+- name: stop_push_button
+  id: uhd_msg_push_button
+  parameters:
+    affinity: ''
+    alias: ''
+    command: stop
+    comment: ''
+    gui_hint: :[1,3,1,1]
+    label: Stop Playback
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    offset: '-1'
+    port: '0'
+    relBackgroundColor: default
+    relFontColor: default
+    repeat: 'False'
+    size: '-1'
+    time: '-1'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [776, 292.0]
+    rotation: 0
+    state: enabled
+- name: uhd_rfnoc_ddc_0
+  id: uhd_rfnoc_ddc
+  parameters:
+    affinity: ''
+    alias: ''
+    block_args: ''
+    comment: ''
+    device_select: '0'
+    freq0: '0'
+    freq1: '0'
+    freq2: '0'
+    freq3: '0'
+    instance_index: '1'
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    num_chans: '1'
+    output_rate0: 5e6
+    output_rate1: '0'
+    output_rate2: '0'
+    output_rate3: '0'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [440, 892.0]
+    rotation: 0
+    state: enabled
+- name: uhd_rfnoc_ddc_0_0
+  id: uhd_rfnoc_ddc
+  parameters:
+    affinity: ''
+    alias: ''
+    block_args: ''
+    comment: ''
+    device_select: '0'
+    freq0: '0'
+    freq1: '0'
+    freq2: '0'
+    freq3: '0'
+    instance_index: '0'
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    num_chans: '1'
+    output_rate0: 5e6
+    output_rate1: '0'
+    output_rate2: '0'
+    output_rate3: '0'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [448, 724.0]
+    rotation: 0
+    state: enabled
+- name: uhd_rfnoc_duc_0
+  id: uhd_rfnoc_duc
+  parameters:
+    affinity: ''
+    alias: ''
+    block_args: ''
+    comment: ''
+    device_select: '0'
+    freq0: '0'
+    freq1: '0'
+    freq2: '0'
+    freq3: '0'
+    input_rate0: samp_rate * 2
+    input_rate1: '0'
+    input_rate2: '0'
+    input_rate3: '0'
+    instance_index: '0'
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    num_chans: '1'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [912, 1100.0]
+    rotation: 0
+    state: enabled
+- name: uhd_rfnoc_duc_0_0
+  id: uhd_rfnoc_duc
+  parameters:
+    affinity: ''
+    alias: ''
+    block_args: ''
+    comment: ''
+    device_select: '0'
+    freq0: '0'
+    freq1: '0'
+    freq2: '0'
+    freq3: '0'
+    input_rate0: samp_rate
+    input_rate1: '0'
+    input_rate2: '0'
+    input_rate3: '0'
+    instance_index: '1'
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    num_chans: '1'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [816, 548.0]
+    rotation: 180
+    state: enabled
+- name: uhd_rfnoc_replay_0
+  id: uhd_rfnoc_replay
+  parameters:
+    affinity: ''
+    alias: ''
+    block_args: ''
+    comment: ''
+    device_select: '0'
+    instance_index: '0'
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    num_in_ports: '1'
+    num_out_ports: '1'
+    play_offset0: '0'
+    play_offset1: '0'
+    play_offset2: '0'
+    play_offset3: '0'
+    play_size0: int(10e6)
+    play_size1: '80000'
+    play_size2: '80000'
+    play_size3: '80000'
+    play_type0: sc16
+    play_type1: s16
+    play_type2: s16
+    play_type3: s16
+    record_offset0: '0'
+    record_offset1: '0'
+    record_offset2: '0'
+    record_offset3: '0'
+    record_size0: int(10e6)
+    record_size1: '80000'
+    record_size2: '80000'
+    record_size3: '80000'
+    record_type0: sc16
+    record_type1: s16
+    record_type2: s16
+    record_type3: s16
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [832, 688.0]
+    rotation: 0
+    state: enabled
+- name: uhd_rfnoc_rx_radio_1
+  id: uhd_rfnoc_rx_radio
+  parameters:
+    affinity: ''
+    alias: ''
+    antenna0: RX2
+    antenna1: RX2
+    antenna2: RX2
+    antenna3: RX2
+    bandwidth0: '0'
+    bandwidth1: '0'
+    bandwidth2: '0'
+    bandwidth3: '0'
+    block_args: ''
+    comment: ''
+    dc_offset0: 'False'
+    dc_offset1: 'False'
+    dc_offset2: 'False'
+    dc_offset3: 'False'
+    device_select: '0'
+    enable_timestamps0: 'True'
+    enable_timestamps1: 'True'
+    enable_timestamps2: 'True'
+    enable_timestamps3: 'True'
+    frequency0: center_freq
+    frequency1: 1e9
+    frequency2: 1e9
+    frequency3: 1e9
+    gain0: '20'
+    gain1: '0'
+    gain2: '0'
+    gain3: '0'
+    instance_index: '1'
+    iq_balance0: 'False'
+    iq_balance1: 'False'
+    iq_balance2: 'False'
+    iq_balance3: 'False'
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    num_chans: '1'
+    rate: 200e6
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [40, 844.0]
+    rotation: 0
+    state: enabled
+- name: uhd_rfnoc_rx_radio_1_0
+  id: uhd_rfnoc_rx_radio
+  parameters:
+    affinity: ''
+    alias: ''
+    antenna0: RX2
+    antenna1: RX2
+    antenna2: RX2
+    antenna3: RX2
+    bandwidth0: '0'
+    bandwidth1: '0'
+    bandwidth2: '0'
+    bandwidth3: '0'
+    block_args: ''
+    comment: ''
+    dc_offset0: 'False'
+    dc_offset1: 'False'
+    dc_offset2: 'False'
+    dc_offset3: 'False'
+    device_select: '0'
+    enable_timestamps0: 'False'
+    enable_timestamps1: 'True'
+    enable_timestamps2: 'True'
+    enable_timestamps3: 'True'
+    frequency0: center_freq
+    frequency1: 1e9
+    frequency2: 1e9
+    frequency3: 1e9
+    gain0: '20'
+    gain1: '0'
+    gain2: '0'
+    gain3: '0'
+    instance_index: '0'
+    iq_balance0: 'False'
+    iq_balance1: 'False'
+    iq_balance2: 'False'
+    iq_balance3: 'False'
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    num_chans: '1'
+    rate: 200e6
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [144, 552.0]
+    rotation: 0
+    state: enabled
+- name: uhd_rfnoc_rx_streamer_0
+  id: uhd_rfnoc_rx_streamer
+  parameters:
+    adapter_id_list: '[0]'
+    affinity: ''
+    alias: ''
+    args: ''
+    comment: ''
+    issue_stream_cmd: 'True'
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    num_chans: '1'
+    otw: sc16
+    output_type: fc32
+    start_time: '0'
+    start_time_set: 'False'
+    use_default_adapter_id: 'True'
+    vlen: '1'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [800, 920.0]
+    rotation: 0
+    state: enabled
+- name: uhd_rfnoc_rx_streamer_0_0
+  id: uhd_rfnoc_rx_streamer
+  parameters:
+    adapter_id_list: '[0]'
+    affinity: ''
+    alias: ''
+    args: ''
+    comment: ''
+    issue_stream_cmd: 'True'
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    num_chans: '1'
+    otw: sc16
+    output_type: fc32
+    start_time: '0'
+    start_time_set: 'False'
+    use_default_adapter_id: 'True'
+    vlen: '1'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [832, 848.0]
+    rotation: 0
+    state: disabled
+- name: uhd_rfnoc_tx_radio_0
+  id: uhd_rfnoc_tx_radio
+  parameters:
+    affinity: ''
+    alias: ''
+    antenna0: TX/RX
+    antenna1: RX2
+    antenna2: RX2
+    antenna3: RX2
+    bandwidth0: '0'
+    bandwidth1: '0'
+    bandwidth2: '0'
+    bandwidth3: '0'
+    block_args: ''
+    comment: ''
+    device_select: '0'
+    frequency0: center_freq
+    frequency1: 1e9
+    frequency2: 1e9
+    frequency3: 1e9
+    gain0: gain
+    gain1: '0'
+    gain2: '0'
+    gain3: '0'
+    instance_index: '1'
+    num_chans: '1'
+    rate: 200e6
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [488, 520.0]
+    rotation: 180
+    state: enabled
+- name: uhd_rfnoc_tx_radio_1
+  id: uhd_rfnoc_tx_radio
+  parameters:
+    affinity: ''
+    alias: ''
+    antenna0: TX/RX
+    antenna1: RX2
+    antenna2: RX2
+    antenna3: RX2
+    bandwidth0: '0'
+    bandwidth1: '0'
+    bandwidth2: '0'
+    bandwidth3: '0'
+    block_args: ''
+    comment: ''
+    device_select: '0'
+    frequency0: center_freq
+    frequency1: 1e9
+    frequency2: 1e9
+    frequency3: 1e9
+    gain0: gain
+    gain1: '0'
+    gain2: '0'
+    gain3: '0'
+    instance_index: '0'
+    num_chans: '1'
+    rate: 200e6
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [1224, 1072.0]
+    rotation: 0
+    state: enabled
+- name: uhd_rfnoc_tx_streamer_0
+  id: uhd_rfnoc_tx_streamer
+  parameters:
+    adapter_id_list: '[0]'
+    affinity: ''
+    alias: ''
+    args: ''
+    comment: ''
+    input_type: fc32
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    num_chans: '1'
+    otw: sc16
+    use_default_adapter_id: 'True'
+    vlen: '1'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [696, 1136.0]
+    rotation: 0
+    state: enabled
+
+connections:
+- [analog_sig_source_x_0, '0', blocks_vco_c_0, '0']
+- [blocks_var_to_msg_0, msgout, uhd_rfnoc_rx_radio_1_0, command]
+- [blocks_vco_c_0, '0', uhd_rfnoc_tx_streamer_0, '0']
+- [cont_play_push_button, pressed, uhd_rfnoc_replay_0, command]
+- [fullness_push_button, pressed, uhd_rfnoc_replay_0, command]
+- [play_push_button, pressed, uhd_rfnoc_replay_0, command]
+- [record_push_button, pressed, uhd_rfnoc_replay_0, command]
+- [stop_push_button, pressed, uhd_rfnoc_replay_0, command]
+- params:
+    is_back_edge: 'False'
+  snk_blk_id: uhd_rfnoc_rx_streamer_0
+  snk_port_id: '0'
+  src_blk_id: uhd_rfnoc_ddc_0
+  src_port_id: '0'
+- params:
+    is_back_edge: 'False'
+  snk_blk_id: uhd_rfnoc_replay_0
+  snk_port_id: '0'
+  src_blk_id: uhd_rfnoc_ddc_0_0
+  src_port_id: '0'
+- params:
+    is_back_edge: 'False'
+  snk_blk_id: uhd_rfnoc_rx_streamer_0_0
+  snk_port_id: '0'
+  src_blk_id: uhd_rfnoc_ddc_0_0
+  src_port_id: '0'
+- params:
+    is_back_edge: 'False'
+  snk_blk_id: uhd_rfnoc_tx_radio_1
+  snk_port_id: '0'
+  src_blk_id: uhd_rfnoc_duc_0
+  src_port_id: '0'
+- params:
+    is_back_edge: 'False'
+  snk_blk_id: uhd_rfnoc_tx_radio_0
+  snk_port_id: '0'
+  src_blk_id: uhd_rfnoc_duc_0_0
+  src_port_id: '0'
+- params:
+    is_back_edge: 'False'
+  snk_blk_id: uhd_rfnoc_duc_0_0
+  snk_port_id: '0'
+  src_blk_id: uhd_rfnoc_replay_0
+  src_port_id: '0'
+- [uhd_rfnoc_replay_0, debug_msgs, blocks_message_debug_0, print]
+- params:
+    is_back_edge: 'False'
+  snk_blk_id: uhd_rfnoc_ddc_0
+  snk_port_id: '0'
+  src_blk_id: uhd_rfnoc_rx_radio_1
+  src_port_id: '0'
+- params:
+    is_back_edge: 'False'
+  snk_blk_id: uhd_rfnoc_ddc_0_0
+  snk_port_id: '0'
+  src_blk_id: uhd_rfnoc_rx_radio_1_0
+  src_port_id: '0'
+- [uhd_rfnoc_rx_streamer_0, '0', qtgui_freq_sink_x_0, '0']
+- [uhd_rfnoc_rx_streamer_0, '0', qtgui_waterfall_sink_x_0, '0']
+- [uhd_rfnoc_rx_streamer_0_0, '0', qtgui_freq_sink_x_0_0, '0']
+- [uhd_rfnoc_rx_streamer_0_0, '0', qtgui_waterfall_sink_x_0_0, '0']
+- params:
+    is_back_edge: 'False'
+  snk_blk_id: uhd_rfnoc_duc_0
+  snk_port_id: '0'
+  src_blk_id: uhd_rfnoc_tx_streamer_0
+  src_port_id: '0'
+
+metadata:
+  file_format: 2
+  grc_version: 3.10.12.0
